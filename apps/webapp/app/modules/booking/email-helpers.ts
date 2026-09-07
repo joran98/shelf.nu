@@ -56,7 +56,7 @@ To view the booking, follow the link below:
 ${SERVER_URL}/bookings/${bookingId}
 ${customEmailFooter ? `\n---\n${customEmailFooter}` : ""}
 Thanks,
-The Shelf Team
+Scouting Vreeswijk
 `;
 };
 
@@ -153,7 +153,7 @@ export async function sendCheckinReminder(
     resolveUserDisplayName(booking.custodianUser) ||
     (booking.custodianTeamMember?.name as string);
 
-  const subject = `🔔 Checkin reminder (${booking.name}) - shelf.nu`;
+  const subject = `🔔 Herinnering inchecken (${booking.name}) - Scouting Vreeswijk`;
 
   for (const recipient of recipients) {
     // Recipient prefs resolved from the ALREADY-LOADED row (raw pref fields on
@@ -342,7 +342,7 @@ export async function sendBookingUpdatedEmail({
         booking.custodianTeamMember?.name) ??
       "";
 
-    const subject = `📝 Booking updated (${booking.name}) - shelf.nu`;
+    const subject = `📝 Boeking bijgewerkt (${booking.name}) - Scouting Vreeswijk`;
 
     // Shared args for every recipient's plain-text body. `prefs` is supplied
     // per recipient inside the loop, so it is omitted here.

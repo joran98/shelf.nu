@@ -1495,8 +1495,8 @@ export async function softDeleteUser(id: User["id"]) {
     /** Send an email to the user that their request has been completed */
     void sendEmail({
       to: user.email,
-      subject: "Your account has been deleted",
-      text: `Your shelf account has been deleted. \n\n Kind regards, \n Shelf Team\n\n`,
+      subject: "Je account is verwijderd",
+      text: `Je account is verwijderd. \n\n Met vriendelijke groet, \n Scouting Vreeswijk\n\n`,
     });
 
     if (error) {

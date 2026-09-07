@@ -123,7 +123,7 @@ const ASSET_SCHEDULER_EVENT_HANDLERS: Record<
         });
 
         sendEmail({
-          subject: "⏰ Asset Reminder Notice - Shelf",
+          subject: "⏰ Materiaalherinnering - Scouting Vreeswijk",
           to: user.email,
           text: assetAlertEmailText({
             asset: reminder.asset,

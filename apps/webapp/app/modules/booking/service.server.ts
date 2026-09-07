@@ -2146,7 +2146,7 @@ export async function reserveBooking({
       await sendBookingEmailToAllRecipients({
         recipients,
         booking: bookingFound,
-        subject: `✅ Booking reserved (${bookingFound.name}) - shelf.nu`,
+        subject: `✅ Boeking gereserveerd (${bookingFound.name}) - Scouting Vreeswijk`,
         buildText: (prefs) =>
           assetReservedEmailContent({
             bookingName: bookingFound.name,
@@ -5649,7 +5649,7 @@ export async function checkinBooking({
       await sendBookingEmailToAllRecipients({
         recipients,
         booking: updatedBooking,
-        subject: `🎉 Booking complete (${updatedBooking.name}) - shelf.nu`,
+        subject: `🎉 Boeking afgerond (${updatedBooking.name}) - Scouting Vreeswijk`,
         buildText: (prefs) =>
           completedBookingEmailContent({
             bookingName: updatedBooking.name,
@@ -10258,7 +10258,7 @@ export async function cancelBooking({
       await sendBookingEmailToAllRecipients({
         recipients,
         booking,
-        subject: `❌ Booking cancelled (${booking.name}) - shelf.nu`,
+        subject: `❌ Boeking geannuleerd (${booking.name}) - Scouting Vreeswijk`,
         buildText: (prefs) =>
           cancelledBookingEmailContent({
             bookingName: booking.name,
@@ -10413,7 +10413,7 @@ export async function revertBookingToDraft({
         await sendBookingEmailToAllRecipients({
           recipients,
           booking: draftBooking,
-          subject: `↩️ Booking reverted to draft (${draftBooking.name}) - shelf.nu`,
+          subject: `↩️ Boeking teruggezet naar concept (${draftBooking.name}) - Scouting Vreeswijk`,
           buildText: (prefs) =>
             revertedToDraftEmailContent({
               bookingName: draftBooking.name,
@@ -10686,7 +10686,7 @@ export async function extendBooking({
       await sendBookingEmailToAllRecipients({
         recipients,
         booking: updatedBooking,
-        subject: `Booking extended (${updatedBooking.name}) - shelf.nu`,
+        subject: `Boeking verlengd (${updatedBooking.name}) - Scouting Vreeswijk`,
         buildText: (prefs) =>
           extendBookingEmailContent({
             bookingName: updatedBooking.name,
@@ -12176,7 +12176,7 @@ export async function deleteBooking(
       await sendBookingEmailToAllRecipients({
         recipients,
         booking: b,
-        subject: `🗑️ Booking deleted (${b.name}) - shelf.nu`,
+        subject: `🗑️ Boeking verwijderd (${b.name}) - Scouting Vreeswijk`,
         buildText: (prefs) =>
           deletedBookingEmailContent({
             bookingName: b.name,
@@ -13267,7 +13267,7 @@ export async function bulkDeleteBookings({
         await sendBookingEmailToAllRecipients({
           recipients,
           booking: b,
-          subject: `🗑️ Booking deleted (${b.name}) - shelf.nu`,
+          subject: `🗑️ Boeking verwijderd (${b.name}) - Scouting Vreeswijk`,
           buildText: (prefs) =>
             deletedBookingEmailContent({
               bookingName: b.name,
@@ -13723,7 +13723,7 @@ export async function bulkCancelBookings({
         await sendBookingEmailToAllRecipients({
           recipients,
           booking: b,
-          subject: `❌ Booking cancelled (${b.name}) - shelf.nu`,
+          subject: `❌ Boeking geannuleerd (${b.name}) - Scouting Vreeswijk`,
           buildText: (prefs) =>
             cancelledBookingEmailContent({
               bookingName: b.name,

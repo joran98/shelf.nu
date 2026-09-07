@@ -304,15 +304,15 @@ export async function action({ context, request }: ActionFunctionArgs) {
          * not own.
          */
         sendEmail({
-          to: ADMIN_EMAIL || `"Shelf" <updates@emails.shelf.nu>`,
-          subject: "Delete account request",
-          text: `User with id ${userId} and email ${email} has requested to delete their account. \n User: ${SERVER_URL}/admin-dashboard/${userId} \n\n Reason: ${reason}\n\n`,
+          to: ADMIN_EMAIL || `"Scouting Vreeswijk" <updates@emails.shelf.nu>`,
+          subject: "Verzoek tot verwijderen account",
+          text: `Gebruiker met id ${userId} en e-mailadres ${email} heeft verzocht om hun account te verwijderen. \n Gebruiker: ${SERVER_URL}/admin-dashboard/${userId} \n\n Reden: ${reason}\n\n`,
         });
 
         sendEmail({
           to: email,
-          subject: "Delete account request received",
-          text: `We have received your request to delete your account. It will be processed within 72 hours.\n\n Kind regards,\nthe Shelf team \n\n`,
+          subject: "Verzoek tot verwijderen account ontvangen",
+          text: `We hebben je verzoek tot het verwijderen van je account ontvangen. Dit wordt binnen 72 uur verwerkt.\n\n Met vriendelijke groet,\nScouting Vreeswijk \n\n`,
         });
 
         sendNotification({
@@ -376,7 +376,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         // Send email with OTP using our email service
         sendEmail({
           to: newEmail,
-          subject: `🔐 Shelf verification code: ${linkData.properties.email_otp}`,
+          subject: `🔐 Verificatiecode: ${linkData.properties.email_otp}`,
           text: changeEmailAddressTextEmail({
             otp: linkData.properties.email_otp,
             user,

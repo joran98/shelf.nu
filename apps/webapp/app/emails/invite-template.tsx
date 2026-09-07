@@ -30,7 +30,7 @@ export function InvitationEmailTemplate({
   return (
     <Html>
       <Head>
-        <title>Invitation to join Shelf</title>
+        <title>Uitnodiging voor Scouting Vreeswijk</title>
       </Head>
 
       <Container
@@ -40,11 +40,11 @@ export function InvitationEmailTemplate({
 
         <div style={{ paddingTop: "8px" }}>
           <Text style={{ marginBottom: "24px", ...styles.p }}>
-            Howdy,
+            Hoi,
             <br />
-            {resolveUserDisplayName(invite.inviter)} invites you to join Shelf
-            as a member of {invite.organization.name}
-            's workspace. Click the link to accept the invite:
+            {resolveUserDisplayName(invite.inviter)} nodigt je uit om lid te
+            worden van de werkruimte "{invite.organization.name}". Klik op de
+            link om de uitnodiging te accepteren:
           </Text>
 
           {extraMessage ? (
@@ -65,7 +65,7 @@ export function InvitationEmailTemplate({
                   margin: "0 0 8px 0",
                 }}
               >
-                Message from {resolveUserDisplayName(invite.inviter)}:
+                Bericht van {resolveUserDisplayName(invite.inviter)}:
               </Text>
 
               <Text
@@ -86,19 +86,18 @@ export function InvitationEmailTemplate({
             href={`${SERVER_URL}/accept-invite/${invite.id}?token=${token}`}
             style={{ ...styles.button, textAlign: "center" }}
           >
-            Accept the invite
+            Uitnodiging accepteren
           </Button>
           <Text style={{ ...styles.p, marginBottom: "24px" }}>
-            Once you’re done setting up your account, you'll be able to access
-            the workspace and start exploring features like Asset Explorer,
-            Location Tracking, Collaboration, Custom fields and more. If you
-            have any questions or need assistance, please don't hesitate to
-            contact our support team at {SUPPORT_EMAIL}.
+            Zodra je account is ingesteld, krijg je toegang tot de werkruimte en
+            kun je aan de slag met onder andere de materialenoverzicht,
+            locatieregistratie, samenwerken en aangepaste velden. Heb je vragen
+            of hulp nodig? Neem dan contact op via {SUPPORT_EMAIL}.
           </Text>
 
           <Text style={{ marginBottom: "32px", ...styles.p }}>
-            Thanks, <br />
-            The Shelf team
+            Met vriendelijke groet, <br />
+            Scouting Vreeswijk
           </Text>
 
           <CustomEmailFooter
@@ -106,7 +105,7 @@ export function InvitationEmailTemplate({
           />
 
           <Text style={{ fontSize: "14px", color: "#344054" }}>
-            This is an automatic email sent from shelf.nu to{" "}
+            Dit is een automatische e-mail verstuurd naar{" "}
             <span style={{ color: emailPrimaryColor }}>
               {invite.inviteeEmail}
             </span>

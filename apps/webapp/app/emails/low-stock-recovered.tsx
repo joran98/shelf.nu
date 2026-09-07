@@ -60,22 +60,22 @@ function LowStockRecoveredTemplate({
   return (
     <Html>
       <Head>
-        <title>Back In Stock</title>
+        <title>Weer op voorraad</title>
       </Head>
 
       <Container style={{ padding: "32px 16px", maxWidth: "100%" }}>
         <LogoForEmail />
 
         <div style={{ paddingTop: "8px" }}>
-          <Text style={{ ...styles.h2 }}>Back In Stock</Text>
+          <Text style={{ ...styles.h2 }}>Weer op voorraad</Text>
 
           <Text style={{ ...styles.p }}>
-            <strong>{assetTitle}</strong> in {organizationName} is back in
-            stock:{" "}
+            <strong>{assetTitle}</strong> in {organizationName} is weer op
+            voorraad:{" "}
             <strong>
               {available} {unitOfMeasure}
             </strong>{" "}
-            available &mdash; above your threshold of{" "}
+            beschikbaar &mdash; boven je drempelwaarde van{" "}
             <strong>
               {minQuantity} {unitOfMeasure}
             </strong>
@@ -91,7 +91,7 @@ function LowStockRecoveredTemplate({
               marginBottom: "24px",
             }}
           >
-            View Asset
+            Bekijk materiaal
           </Button>
 
           <Text
@@ -103,11 +103,13 @@ function LowStockRecoveredTemplate({
               padding: "16px",
             }}
           >
-            No action needed &mdash; this item is above its reorder threshold
-            again.
+            Geen actie nodig &mdash; dit item zit weer boven de
+            bijbestel-drempel.
           </Text>
 
-          <Text style={{ marginTop: "24px", ...styles.p }}>The Shelf Team</Text>
+          <Text style={{ marginTop: "24px", ...styles.p }}>
+            Scouting Vreeswijk
+          </Text>
         </div>
       </Container>
     </Html>
@@ -136,13 +138,13 @@ export const lowStockRecoveredText = ({
   unitOfMeasure,
   assetId,
   organizationName,
-}: LowStockRecoveredProps) => `Back In Stock
+}: LowStockRecoveredProps) => `Weer op voorraad
 
-${assetTitle} in ${organizationName} is back in stock: ${available} ${unitOfMeasure} available — above your threshold of ${minQuantity} ${unitOfMeasure}.
+${assetTitle} in ${organizationName} is weer op voorraad: ${available} ${unitOfMeasure} beschikbaar — boven je drempelwaarde van ${minQuantity} ${unitOfMeasure}.
 
-View Asset: ${SERVER_URL}/assets/${assetId}/overview
+Bekijk materiaal: ${SERVER_URL}/assets/${assetId}/overview
 
-No action needed — this item is above its reorder threshold again.
+Geen actie nodig — dit item zit weer boven de bijbestel-drempel.
 
-The Shelf Team
+Scouting Vreeswijk
 `;

@@ -996,7 +996,7 @@ export async function transferOwnership({
 
     /** Send email to new owner */
     sendEmail({
-      subject: `🎉 You're now the Owner of ${currentOrganization.name} - Shelf`,
+      subject: `🎉 Je bent nu eigenaar van ${currentOrganization.name}`,
       to: newOwnerUserOrg.user.email,
       text: newOwnerEmailText({
         newOwnerName: resolveUserDisplayName(newOwnerUserOrg.user),
@@ -1007,7 +1007,7 @@ export async function transferOwnership({
 
     /** Send email to previous owner */
     sendEmail({
-      subject: `🔁 You've Transferred Ownership of ${currentOrganization.name}`,
+      subject: `🔁 Je hebt het eigenaarschap van ${currentOrganization.name} overgedragen`,
       to: currentOwnerUserOrg.user.email,
       text: previousOwnerEmailText({
         previousOwnerName: resolveUserDisplayName(currentOwnerUserOrg.user),

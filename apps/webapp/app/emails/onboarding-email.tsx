@@ -1,25 +1,17 @@
 /**
- * THis is the text version of the onboarding email
+ * Text version of the onboarding email
  */
 export const onboardingEmailText = ({
   firstName,
 }: {
   firstName: string;
-}) => `Hi ${firstName},
+}) => `Hoi ${firstName},
 
-Thrilled to have you on board at Shelf! I'm Carlos Virreira, one of the co-founders, and I'm excited to learn more about your needs as an asset management professional.
+Welkom bij ons materialenbeheersysteem! Fijn dat je aan de slag gaat met het bijhouden van het materiaal van Scouting Vreeswijk.
 
-How do you plan to use Shelf.nu? 
+Loop je ergens tegenaan, of heb je vragen of ideeën over hoe we het systeem nog handiger kunnen maken? Laat het gerust weten door te reageren op deze e-mail.
 
-What features are essential for you in an asset management system? 
+Met vriendelijke groet,
 
-Your input is key as we fine-tune Shelf.nu for professionals like yourself.
-
-Feel free to hit reply and share anything in your mind. All mails reach my personal inbox and I love receiving mails.
-
-Greetings from The Netherlands,
-
-Carlos Virreira
-Founder & Vision Lead
-Shelf Asset Management, Inc.
+Scouting Vreeswijk
 `;

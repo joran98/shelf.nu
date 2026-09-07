@@ -165,7 +165,7 @@ export async function resolveUserAction(
 
       sendEmail({
         to: user.email,
-        subject: `Access to ${org.name} has been revoked`,
+        subject: `Je toegang tot ${org.name} is ingetrokken`,
         text: revokeAccessEmailText({
           orgName: org.name,
           customEmailFooter: org.customEmailFooter,
@@ -462,7 +462,7 @@ export async function resolveUserAction(
 
       sendEmail({
         to: targetUser.email,
-        subject: `Your role in ${org.name} has been changed`,
+        subject: `Je rol in ${org.name} is gewijzigd`,
         text: roleChangeEmailText({
           orgName: org.name,
           previousRole: previousRoleName,

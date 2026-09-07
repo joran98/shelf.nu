@@ -194,7 +194,7 @@ export async function sendAuditAssignedEmail({
 
     sendEmail({
       to: assigneeEmail,
-      subject: `🔍 You've been assigned to audit: "${audit.name}" - shelf.nu`,
+      subject: `🔍 Je bent toegewezen aan audit: "${audit.name}" - Scouting Vreeswijk`,
       text: auditAssignedEmailContent({
         auditName: audit.name,
         assetsCount: assetCount,
@@ -294,7 +294,7 @@ export function sendAuditCancelledEmails({
 
       sendEmail({
         to: assignment.user.email,
-        subject: `❌ Audit cancelled: "${audit.name}" - shelf.nu`,
+        subject: `❌ Audit geannuleerd: "${audit.name}" - Scouting Vreeswijk`,
         text: auditCancelledEmailContent({
           auditName: audit.name,
           assetsCount: assetCount,
@@ -376,7 +376,7 @@ export function sendAuditCompletedEmail({
 
       sendEmail({
         to: assignment.user.email,
-        subject: `✅ Audit completed: "${audit.name}" - shelf.nu`,
+        subject: `✅ Audit afgerond: "${audit.name}" - Scouting Vreeswijk`,
         text: auditCompletedEmailContent({
           auditName: audit.name,
           assetsCount: assetCount,
@@ -458,7 +458,7 @@ export function sendAuditReminderEmail({
 
       sendEmail({
         to: assignment.user.email,
-        subject: `${heading}: "${audit.name}" - shelf.nu`,
+        subject: `${heading}: "${audit.name}" - Scouting Vreeswijk`,
         text: auditReminderEmailContent({
           auditName: audit.name,
           assetsCount: assetCount,
@@ -539,7 +539,7 @@ export function sendAuditOverdueEmail({
 
       sendEmail({
         to: recipient.email,
-        subject: `⚠️ Audit overdue: "${audit.name}" - shelf.nu`,
+        subject: `⚠️ Audit te laat: "${audit.name}" - Scouting Vreeswijk`,
         text: auditOverdueEmailContent({
           auditName: audit.name,
           assetsCount: assetCount,

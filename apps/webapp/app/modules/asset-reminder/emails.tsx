@@ -36,19 +36,18 @@ export function assetAlertEmailText({
   const userName = resolveUserDisplayName(user);
 
   const note = isOwner
-    ? `You are receiving this email because the original person was removed from workspace ${workspaceName}.`
-    : `This email was sent to ${user.email} because it is part of the Shelf workspace ${workspaceName}.
-If you think you weren't supposed to have received this email please contact the owner of the workspace.`;
+    ? `Je ontvangt deze e-mail omdat de oorspronkelijke persoon is verwijderd uit de werkruimte ${workspaceName}.`
+    : `Deze e-mail is verstuurd naar ${user.email} omdat je onderdeel bent van de werkruimte ${workspaceName}.
+Denk je dat je deze e-mail niet had moeten ontvangen, neem dan contact op met de beheerder van de werkruimte.`;
 
-  return `Asset reminder notice
+  return `Materiaalherinnering
 
-Hi ${userName}, your asset reminder date has been reached. Please
-perform the required action for alert.
+Hoi ${userName}, de herinneringsdatum voor dit materiaal is bereikt. Onderneem de vereiste actie.
 
 ${asset.title}
 ${asset.id}
 
-Reminder - ${reminder.name}
+Herinnering - ${reminder.name}
 
 ${reminder.message}
 
@@ -56,8 +55,8 @@ ${SERVER_URL}/assets/${asset.id}
 
 ${note}
 ${customEmailFooter ? `\n---\n${customEmailFooter}` : ""}
-Thanks,
-The Shelf Team
+Met vriendelijke groet,
+Scouting Vreeswijk
 `;
 }
 
@@ -87,7 +86,7 @@ function AssetAlertEmailTemplate({
   return (
     <Html>
       <Head>
-        <title>Asset Reminder Notice</title>
+        <title>Materiaalherinnering</title>
       </Head>
 
       <Container
@@ -108,11 +107,11 @@ function AssetAlertEmailTemplate({
         </div>
 
         <div style={{ paddingTop: "8px" }}>
-          <Text style={styles.h1}>Asset Reminder Notice</Text>
+          <Text style={styles.h1}>Materiaalherinnering</Text>
 
           <Text style={{ marginBottom: "20px", ...styles.p }}>
-            Hi {userName}, your asset reminder date has been reached. Please
-            perform the required actions for this alert.
+            Hoi {userName}, de herinneringsdatum voor dit materiaal is bereikt.
+            Onderneem de vereiste actie.
           </Text>
 
           <Row
@@ -174,26 +173,26 @@ function AssetAlertEmailTemplate({
               marginBottom: "30px",
             }}
           >
-            Open asset page
+            Open materiaalpagina
           </Button>
 
           {isOwner ? (
             <Text style={{ ...styles.p, marginBottom: "48px" }}>
-              You are receiving this email because the original person was
-              removed from workspace{" "}
+              Je ontvangt deze e-mail omdat de oorspronkelijke persoon is
+              verwijderd uit de werkruimte{" "}
               <span style={{ fontWeight: "bold" }}>{workspaceName}</span>.
             </Text>
           ) : (
             <>
               <Text style={{ ...styles.p, marginBottom: "10px" }}>
-                This email was sent to{" "}
-                <span style={{ fontWeight: "bold" }}>{user.email}</span> because
-                it is part of the Shelf workspace{" "}
+                Deze e-mail is verstuurd naar{" "}
+                <span style={{ fontWeight: "bold" }}>{user.email}</span> omdat
+                je onderdeel bent van de werkruimte{" "}
                 <span style={{ fontWeight: "bold" }}>{workspaceName}</span>.
               </Text>
               <Text style={{ ...styles.p, marginBottom: "48px" }}>
-                If you think you weren't supposed to have received this email
-                please contact the owner of the workspace.
+                Denk je dat je deze e-mail niet had moeten ontvangen, neem dan
+                contact op met de beheerder van de werkruimte.
               </Text>
             </>
           )}

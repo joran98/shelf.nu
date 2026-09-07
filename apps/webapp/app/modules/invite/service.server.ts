@@ -295,7 +295,7 @@ export async function createInvite(
 
     sendEmail({
       to: inviteeEmail,
-      subject: `✉️ You have been invited to ${invite.organization.name}`,
+      subject: `✉️ Je bent uitgenodigd voor ${invite.organization.name}`,
       text: inviteEmailText({ invite, token, extraMessage: sanitizedMessage }),
       html: await invitationTemplateString({
         invite,
@@ -876,7 +876,7 @@ export async function bulkInviteUsers({
 
           sendEmail({
             to: invite.inviteeEmail,
-            subject: `✉️ You have been invited to ${invite.organization.name}`,
+            subject: `✉️ Je bent uitgenodigd voor ${invite.organization.name}`,
             text: inviteEmailText({
               invite,
               token,

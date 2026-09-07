@@ -63,7 +63,8 @@ export function AuditUpdatesEmailTemplate({
   completedAt,
   wasOverdue,
 }: Props) {
-  const creatorName = resolveUserDisplayName(audit.createdBy) || "Unknown User";
+  const creatorName =
+    resolveUserDisplayName(audit.createdBy) || "Onbekende gebruiker";
 
   const dueDateFormatted = audit.dueDate
     ? formatDate(audit.dueDate as Date, prefs, { includeTime: true })
@@ -77,7 +78,7 @@ export function AuditUpdatesEmailTemplate({
   return (
     <Html>
       <Head>
-        <title>Audit update from Shelf.nu</title>
+        <title>Auditupdate van Scouting Vreeswijk</title>
       </Head>
 
       <Container
@@ -98,18 +99,18 @@ export function AuditUpdatesEmailTemplate({
             {heading}
           </Heading>
           <Heading as="h2" style={{ ...styles.h2 }}>
-            {audit.name} | {assetCount} {assetCount === 1 ? "asset" : "assets"}
+            {audit.name} | {assetCount} {assetCount === 1 ? "item" : "items"}
           </Heading>
           <p style={{ ...styles.p }}>
             <span style={{ color: "#101828", fontWeight: "600" }}>
-              Created by:
+              Aangemaakt door:
             </span>{" "}
             {creatorName}
           </p>
           {dueDateFormatted && (
             <p style={{ ...styles.p }}>
               <span style={{ color: "#101828", fontWeight: "600" }}>
-                Due date:
+                Vervaldatum:
               </span>{" "}
               {dueDateFormatted}
             </p>
@@ -117,7 +118,7 @@ export function AuditUpdatesEmailTemplate({
           {completedAt && (
             <p style={{ ...styles.p }}>
               <span style={{ color: "#101828", fontWeight: "600" }}>
-                Completed on:
+                Afgerond op:
               </span>{" "}
               {formatDate(completedAt, prefs, { includeTime: true })}
               {wasOverdue && (
@@ -131,7 +132,7 @@ export function AuditUpdatesEmailTemplate({
           {audit.description && (
             <p style={{ ...styles.p }}>
               <span style={{ color: "#101828", fontWeight: "600" }}>
-                Description:
+                Omschrijving:
               </span>{" "}
               {audit.description}
             </p>
@@ -152,7 +153,7 @@ export function AuditUpdatesEmailTemplate({
                 maxWidth: "240px",
               }}
             >
-              View audit in app
+              Bekijk audit in de app
             </Button>
             {receiptUrl && (
               <Button
@@ -166,7 +167,7 @@ export function AuditUpdatesEmailTemplate({
                   maxWidth: "240px",
                 }}
               >
-                Download receipt
+                Download bewijs
               </Button>
             )}
           </div>
@@ -190,13 +191,13 @@ export function AuditUpdatesEmailTemplate({
                 color: "#344054",
               }}
             >
-              This email was sent to you because you are the OWNER or ADMIN of
-              the workspace{" "}
+              Deze e-mail is naar je verstuurd omdat je EIGENAAR of BEHEERDER
+              bent van de werkruimte{" "}
               <span style={{ color: "#101828", fontWeight: "600" }}>
                 "{audit.organization.name}"
               </span>
-              . <br /> If you think you weren't supposed to have received this
-              email please contact support.
+              . <br /> Denk je dat je deze e-mail niet had moeten ontvangen,
+              neem dan contact op met de beheerder.
             </p>
           ) : (
             <p
@@ -207,9 +208,9 @@ export function AuditUpdatesEmailTemplate({
                 color: "#71717A",
               }}
             >
-              Thanks,
+              Met vriendelijke groet,
               <br />
-              The Shelf Team
+              Scouting Vreeswijk
             </p>
           )}
           <p
@@ -220,7 +221,7 @@ export function AuditUpdatesEmailTemplate({
               color: "#344054",
             }}
           >
-            © {new Date().getFullYear()} Shelf.nu
+            © {new Date().getFullYear()} Scouting Vreeswijk
           </p>
         </div>
       </Container>

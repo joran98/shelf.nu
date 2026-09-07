@@ -47,7 +47,7 @@ import { getOrganizationById } from "~/modules/organization/service.server";
 import { getUserByID, updateUser } from "~/modules/user/service.server";
 import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 import { setCookie } from "~/utils/cookies.server";
-import { SMTP_FROM } from "~/utils/env";
+import { SMTP_FROM, SUPPORT_EMAIL } from "~/utils/env";
 import { isZodValidationError, makeShelfError } from "~/utils/error";
 import { isFormProcessing } from "~/utils/form";
 import { getValidationErrors } from "~/utils/http";
@@ -464,10 +464,10 @@ export async function action({ context, request }: ActionFunctionArgs) {
     if (config.sendOnboardingEmail) {
       /** Send onboarding email */
       sendEmail({
-        from: SMTP_FROM || `"Carlos from shelf.nu" <carlos@emails.shelf.nu>`,
-        replyTo: "carlos@shelf.nu",
+        from: SMTP_FROM,
+        replyTo: SUPPORT_EMAIL,
         to: user.email,
-        subject: "🏷️ Welcome to Shelf - can I ask you a question?",
+        subject: "🏷️ Welkom bij Scouting Vreeswijk - mag ik je iets vragen?",
         text: onboardingEmailText({ firstName: resolveUserGreetingName(user) }),
       });
     }

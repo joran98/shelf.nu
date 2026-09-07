@@ -12,15 +12,15 @@ export const changeEmailAddressTextEmail = ({
 }: {
   otp: string;
   user: UserNameFields & { email: string };
-}) => `Howdy ${resolveUserDisplayName(user) || "there"},
+}) => `Hoi ${resolveUserDisplayName(user) || "daar"},
 
-Your verification code for email change is: ${otp}
+Je verificatiecode voor het wijzigen van je e-mailadres is: ${otp}
 
-Don't share this OTP with anyone. Our customer service team will never ask you for your password, OTP, credit card, or banking info.
-This code will expire in 1 hour. If you have not requested this change, please ignore the email and contact support immediately.
+Deel deze code met niemand. Wij zullen je nooit vragen om je wachtwoord, verificatiecode, creditcard- of bankgegevens.
+Deze code verloopt over 1 uur. Heb je deze wijziging niet aangevraagd, negeer deze e-mail dan en neem direct contact met ons op.
 
-Kind regards,
-the Shelf team`;
+Met vriendelijke groet,
+Scouting Vreeswijk`;
 
 function ChangeEmailAddressHtmlEmailTemplate({
   otp,
@@ -32,32 +32,33 @@ function ChangeEmailAddressHtmlEmailTemplate({
   return (
     <Html>
       <Head>
-        <title>🔐 Your verification code for email change is: {otp}</title>
+        <title>🔐 Je verificatiecode voor e-mailwijziging is: {otp}</title>
       </Head>
 
       <Container style={{ maxWidth: "100%" }}>
         <div style={{ paddingTop: "8px" }}>
           <Text style={{ ...styles.p }}>
-            Howdy {resolveUserDisplayName(user) || "there"},
+            Hoi {resolveUserDisplayName(user) || "daar"},
           </Text>
           <Text style={{ ...styles.p }}>
-            Your verification code for email change is:
+            Je verificatiecode voor het wijzigen van je e-mailadres is:
           </Text>
           <h2>
             <b>{otp}</b>
           </h2>
           <Text style={{ ...styles.p }}>
-            Don't share this OTP with anyone. Our customer service team will
-            never ask you for your password, OTP, credit card, or banking info.
+            Deel deze code met niemand. Wij zullen je nooit vragen om je
+            wachtwoord, verificatiecode, creditcard- of bankgegevens.
           </Text>
           <Text style={{ ...styles.p }}>
-            This code will expire in 1 hour. If you have not requested this
-            change, please ignore the email and contact support immediately.
+            Deze code verloopt over 1 uur. Heb je deze wijziging niet
+            aangevraagd, negeer deze e-mail dan en neem direct contact met ons
+            op.
             <br />
             <br />
-            Kind regards,
+            Met vriendelijke groet,
             <br />
-            the Shelf team
+            Scouting Vreeswijk
           </Text>
         </div>
       </Container>

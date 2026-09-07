@@ -56,21 +56,21 @@ function LowStockAlertTemplate({
   return (
     <Html>
       <Head>
-        <title>Low Stock Alert</title>
+        <title>Melding lage voorraad</title>
       </Head>
 
       <Container style={{ padding: "32px 16px", maxWidth: "100%" }}>
         <LogoForEmail />
 
         <div style={{ paddingTop: "8px" }}>
-          <Text style={{ ...styles.h2 }}>Low Stock Alert</Text>
+          <Text style={{ ...styles.h2 }}>Melding lage voorraad</Text>
 
           <Text style={{ ...styles.p }}>
-            <strong>{assetTitle}</strong> in {organizationName} has dropped to{" "}
+            <strong>{assetTitle}</strong> in {organizationName} is gezakt naar{" "}
             <strong>
               {available} {unitOfMeasure}
             </strong>{" "}
-            &mdash; below your threshold of{" "}
+            &mdash; onder je drempelwaarde van{" "}
             <strong>
               {minQuantity} {unitOfMeasure}
             </strong>
@@ -86,7 +86,7 @@ function LowStockAlertTemplate({
               marginBottom: "24px",
             }}
           >
-            View Asset
+            Bekijk materiaal
           </Button>
 
           <Text
@@ -98,10 +98,12 @@ function LowStockAlertTemplate({
               padding: "16px",
             }}
           >
-            Consider restocking to maintain adequate inventory levels.
+            Overweeg om de voorraad aan te vullen.
           </Text>
 
-          <Text style={{ marginTop: "24px", ...styles.p }}>The Shelf Team</Text>
+          <Text style={{ marginTop: "24px", ...styles.p }}>
+            Scouting Vreeswijk
+          </Text>
         </div>
       </Container>
     </Html>
@@ -130,13 +132,13 @@ export const lowStockAlertText = ({
   unitOfMeasure,
   assetId,
   organizationName,
-}: LowStockAlertProps) => `Low Stock Alert
+}: LowStockAlertProps) => `Melding lage voorraad
 
-${assetTitle} in ${organizationName} has dropped to ${available} ${unitOfMeasure} — below your threshold of ${minQuantity} ${unitOfMeasure}.
+${assetTitle} in ${organizationName} is gezakt naar ${available} ${unitOfMeasure} — onder je drempelwaarde van ${minQuantity} ${unitOfMeasure}.
 
-View Asset: ${SERVER_URL}/assets/${assetId}/overview
+Bekijk materiaal: ${SERVER_URL}/assets/${assetId}/overview
 
-Consider restocking to maintain adequate inventory levels.
+Overweeg om de voorraad aan te vullen.
 
-The Shelf Team
+Scouting Vreeswijk
 `;

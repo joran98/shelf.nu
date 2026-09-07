@@ -8,7 +8,7 @@ export function LogoForEmail() {
     <div style={{ margin: "0 auto", display: "flex" }}>
       <Img
         src={`${SERVER_URL}/static/images/logo-full-color(x2).png`}
-        alt="Shelf's logo"
+        alt="Logo van Scouting Vreeswijk"
         width="auto"
         height="32"
         style={{ marginRight: "6px", width: "auto", height: "32px" }}
@@ -22,7 +22,7 @@ export function LogoForEmail() {
             margin: "0",
           }}
         >
-          shelf
+          Scouting Vreeswijk
         </Heading>
       )}
     </div>

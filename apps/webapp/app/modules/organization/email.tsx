@@ -9,25 +9,25 @@ export function newOwnerEmailText({
 }) {
   const subscriptionSection = subscriptionTransferred
     ? `
-Additionally, the previous owner's subscription has been transferred to you.
+Daarnaast is het abonnement van de vorige eigenaar overgedragen aan jou.
 
-The current billing cycle continues unchanged - you won't be charged until the next billing date. However, you will need to add your own payment method before then to avoid any interruption in service.
+De huidige factureringscyclus loopt ongewijzigd door - er wordt pas kosten in rekening gebracht op de volgende factureringsdatum. Zorg er wel voor dat je vóór die tijd zelf een betaalmethode toevoegt, zodat de dienst niet wordt onderbroken.
 
-You can manage your subscription and add a payment method from your account settings.
+Je kunt je abonnement beheren en een betaalmethode toevoegen via je accountinstellingen.
 `
     : "";
 
-  return `Hi ${newOwnerName},
+  return `Hoi ${newOwnerName},
 
-You have successfully been assigned as the owner of the workspace "${workspaceName}".
+Je bent nu toegewezen als eigenaar van de werkruimte "${workspaceName}".
 
-This means you now have full control over:
-- Workspace settings
-- Billing and subscription
-- User management
+Dit betekent dat je volledige controle hebt over:
+- Werkruimte-instellingen
+- Facturering en abonnement
+- Gebruikersbeheer
 ${subscriptionSection}
-Thanks,
-The Shelf Team
+Met vriendelijke groet,
+Scouting Vreeswijk
 `;
 }
 
@@ -44,22 +44,22 @@ export function previousOwnerEmailText({
 }) {
   const subscriptionSection = subscriptionTransferred
     ? `
-Your subscription has also been transferred to ${newOwnerName}. This means:
-- ${newOwnerName} now manages the billing for this workspace
-- Your account has been downgraded to the free tier
-- If you have other team workspaces, you may need to subscribe again to access premium features
+Je abonnement is ook overgedragen aan ${newOwnerName}. Dit betekent:
+- ${newOwnerName} beheert nu de facturering voor deze werkruimte
+- Je account is teruggezet naar de gratis versie
+- Heb je andere teamwerkruimtes, dan moet je daar mogelijk opnieuw een abonnement afsluiten voor premiumfuncties
 `
     : "";
 
-  return `Hi ${previousOwnerName},
+  return `Hoi ${previousOwnerName},
 
-You have successfully transferred ownership of the workspace "${workspaceName}" to "${newOwnerName}".
+Je hebt het eigenaarschap van de werkruimte "${workspaceName}" overgedragen aan "${newOwnerName}".
 
-As a result:
-- You are now an admin in the workspace
-- You no longer have access to billing or ownership-level settings
+Als gevolg hiervan:
+- Ben je nu beheerder in de werkruimte
+- Heb je geen toegang meer tot facturering of eigenaarsinstellingen
 ${subscriptionSection}
-Thanks,
-The Shelf Team
+Met vriendelijke groet,
+Scouting Vreeswijk
 `;
 }

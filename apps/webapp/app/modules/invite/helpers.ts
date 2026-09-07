@@ -21,37 +21,37 @@ export const inviteEmailText = ({
   invite: InviteWithInviterAndOrg;
   token: string;
   extraMessage?: string | null;
-}) => `Howdy,
+}) => `Hoi,
 
 ${resolveUserDisplayName(
   invite.inviter
-)} invites you to join Shelf as a member of ${
+)} nodigt je uit om lid te worden van de werkruimte "${
   invite.organization.name
-}'s workspace.
+}".
 ${
   extraMessage
     ? `
 ---
-Message from ${resolveUserDisplayName(invite.inviter)}:
+Bericht van ${resolveUserDisplayName(invite.inviter)}:
 
 ${extraMessage}
 ---
 `
     : ""
 }
-Click the link to accept the invite:
+Klik op de link om de uitnodiging te accepteren:
 ${SERVER_URL}/accept-invite/${invite.id}?token=${token}
 
-Once you're done setting up your account, you'll be able to access the workspace and start exploring features like Asset Explorer, Location Tracking, Collaboration, Custom fields and more.
+Zodra je account is ingesteld, krijg je toegang tot de werkruimte en kun je aan de slag met onder andere de materialenoverzicht, locatieregistratie, samenwerken en aangepaste velden.
 
-If you have any questions or need assistance, please don't hesitate to contact our support team at ${SUPPORT_EMAIL}.
+Heb je vragen of hulp nodig? Neem dan contact op via ${SUPPORT_EMAIL}.
 ${
   invite.organization.customEmailFooter
     ? `\n---\n${invite.organization.customEmailFooter}`
     : ""
 }
-Thanks,
-The Shelf Team
+Met vriendelijke groet,
+Scouting Vreeswijk
 `;
 
 export function splitName(fullName?: string | null): {
@@ -77,14 +77,14 @@ export const revokeAccessEmailText = ({
 }: {
   orgName: string;
   customEmailFooter?: string | null;
-}) => `Howdy,
+}) => `Hoi,
 
-Your access to ${orgName} has been revoked.
+Je toegang tot ${orgName} is ingetrokken.
 
-If you think this is a mistake, please contact the organization's administrator.
+Denk je dat dit een vergissing is? Neem dan contact op met de beheerder.
 ${customEmailFooter ? `\n---\n${customEmailFooter}` : ""}
-Thanks,
-The Shelf Team
+Met vriendelijke groet,
+Scouting Vreeswijk
 `;
 
 export const roleChangeEmailText = ({
@@ -97,12 +97,12 @@ export const roleChangeEmailText = ({
   previousRole: string;
   newRole: string;
   customEmailFooter?: string | null;
-}) => `Howdy,
+}) => `Hoi,
 
-Your role in ${orgName} has been changed from ${previousRole} to ${newRole}.
+Je rol in ${orgName} is gewijzigd van ${previousRole} naar ${newRole}.
 
-If you think this is a mistake, please contact the workspace administrator.
+Denk je dat dit een vergissing is? Neem dan contact op met de beheerder van de werkruimte.
 ${customEmailFooter ? `\n---\n${customEmailFooter}` : ""}
-Thanks,
-The Shelf Team
+Met vriendelijke groet,
+Scouting Vreeswijk
 `;

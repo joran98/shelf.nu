@@ -24,7 +24,7 @@ export function RoleChangeEmailTemplate({
   return (
     <Html>
       <Head>
-        <title>Your role has been changed</title>
+        <title>Je rol is gewijzigd</title>
       </Head>
 
       <Container
@@ -34,27 +34,27 @@ export function RoleChangeEmailTemplate({
 
         <div style={{ paddingTop: "8px" }}>
           <Text style={{ marginBottom: "24px", ...styles.p }}>
-            Howdy,
+            Hoi,
             <br />
-            Your role in <strong>{orgName}</strong> has been changed from{" "}
-            <strong>{previousRole}</strong> to <strong>{newRole}</strong>.
+            Je rol in <strong>{orgName}</strong> is gewijzigd van{" "}
+            <strong>{previousRole}</strong> naar <strong>{newRole}</strong>.
           </Text>
 
           <Text style={{ ...styles.p, marginBottom: "24px" }}>
-            If you think this is a mistake, please contact the workspace
-            administrator. If you have any questions or need assistance, please
-            don't hesitate to contact our support team at {SUPPORT_EMAIL}.
+            Denk je dat dit een vergissing is? Neem dan contact op met de
+            beheerder van de werkruimte. Heb je vragen of hulp nodig? Neem dan
+            contact op via {SUPPORT_EMAIL}.
           </Text>
 
           <Text style={{ marginBottom: "32px", ...styles.p }}>
-            Thanks, <br />
-            The Shelf team
+            Met vriendelijke groet, <br />
+            Scouting Vreeswijk
           </Text>
 
           <CustomEmailFooter footerText={customEmailFooter} />
 
           <Text style={{ fontSize: "14px", color: "#344054" }}>
-            This is an automatic email sent from shelf.nu to{" "}
+            Dit is een automatische e-mail verstuurd naar{" "}
             <span style={{ color: emailPrimaryColor }}>{recipientEmail}</span>.
           </Text>
         </div>
