@@ -1087,6 +1087,7 @@ enum WeekStartPreference {
 enum OrganizationRoles {
   ADMIN
   BASE
+  MAC
   OWNER
   SELF_SERVICE
 }

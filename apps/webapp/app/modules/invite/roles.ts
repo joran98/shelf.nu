@@ -27,6 +27,7 @@ import { OrganizationRoles } from "@prisma/client";
  */
 export const INVITABLE_ROLES = [
   OrganizationRoles.ADMIN,
+  OrganizationRoles.MAC,
   OrganizationRoles.BASE,
   OrganizationRoles.SELF_SERVICE,
 ] as const;

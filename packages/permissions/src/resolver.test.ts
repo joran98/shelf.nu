@@ -226,6 +226,84 @@ describe("roleHasPermission — absent or unknown roles", () => {
   });
 });
 
+describe("roleHasPermission — MAC role", () => {
+  // MAC does not get the ADMIN/OWNER short-circuit, so these pin the two
+  // halves of its contract directly against the matrix: full day-to-day
+  // booking/custody operation, but excluded from workspace administration.
+  test("grants full booking lifecycle actions", () => {
+    for (const action of [
+      PermissionAction.create,
+      PermissionAction.checkout,
+      PermissionAction.checkin,
+      PermissionAction.cancel,
+      PermissionAction.extend,
+    ]) {
+      assert.equal(
+        roleHasPermission({
+          roles: ["MAC"],
+          entity: PermissionEntity.booking,
+          action,
+        }),
+        true
+      );
+    }
+  });
+
+  test("grants custody on assets and kits", () => {
+    for (const entity of [PermissionEntity.asset, PermissionEntity.kit]) {
+      assert.equal(
+        roleHasPermission({
+          roles: ["MAC"],
+          entity,
+          action: PermissionAction.custody,
+        }),
+        true
+      );
+    }
+  });
+
+  test("denies workspace administration and billing", () => {
+    for (const entity of [
+      PermissionEntity.workspace,
+      PermissionEntity.generalSettings,
+      PermissionEntity.emailSettings,
+      PermissionEntity.subscription,
+    ]) {
+      for (const action of [PermissionAction.read, PermissionAction.update]) {
+        assert.equal(
+          roleHasPermission({ roles: ["MAC"], entity, action }),
+          false
+        );
+      }
+    }
+  });
+
+  test("can see team members but cannot manage them", () => {
+    assert.equal(
+      roleHasPermission({
+        roles: ["MAC"],
+        entity: PermissionEntity.teamMember,
+        action: PermissionAction.read,
+      }),
+      true
+    );
+    for (const action of [
+      PermissionAction.create,
+      PermissionAction.delete,
+      PermissionAction.changeRole,
+    ]) {
+      assert.equal(
+        roleHasPermission({
+          roles: ["MAC"],
+          entity: PermissionEntity.teamMember,
+          action,
+        }),
+        false
+      );
+    }
+  });
+});
+
 describe("roleHasPermission — reports entity", () => {
   test("denies BASE and SELF_SERVICE both read and export", () => {
     // Reports aggregate org-wide custody, booking and value data. The

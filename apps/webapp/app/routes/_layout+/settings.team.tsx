@@ -22,10 +22,7 @@ import { premiumIsEnabled } from "~/utils/subscription.server";
 import { resolveTeamUpgradeCta } from "~/utils/team-upgrade-cta";
 
 export type UserFriendlyRoles =
-  | "Administrator"
-  | "Owner"
-  | "Base"
-  | "Self service";
+  "Administrator" | "Owner" | "Base" | "Self service" | "Mac";
 export const meta = () => [{ title: appendToMetaTitle("Team settings") }];
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
@@ -98,6 +95,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 export const organizationRolesMap: Record<string, UserFriendlyRoles> = {
   [OrganizationRoles.ADMIN]: "Administrator",
   [OrganizationRoles.OWNER]: "Owner",
+  [OrganizationRoles.MAC]: "Mac",
   [OrganizationRoles.BASE]: "Base",
   [OrganizationRoles.SELF_SERVICE]: "Self service",
 };

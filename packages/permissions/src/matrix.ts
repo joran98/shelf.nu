@@ -277,6 +277,149 @@ export const Role2PermissionMap: {
     [PermissionEntity.update]: [PermissionAction.read],
     [PermissionEntity.commandPaletteSearch]: [PermissionAction.read],
   },
+  /**
+   * Day-to-day operations lead: runs bookings and custody end-to-end
+   * (including check-in/check-out and the org's full booking/custody
+   * visibility, since it is not SELF_SERVICE/BASE — see
+   * `isSelfServiceOrBaseRole` in the webapp), but excluded from workspace
+   * administration: no workspace/general/email settings, no subscription,
+   * and no team-member management beyond viewing (no invite, no role
+   * changes). Does NOT get the ADMIN/OWNER short-circuit in `resolver.ts`,
+   * so every entity this role should touch must be listed explicitly here.
+   */
+  MAC: {
+    [PermissionEntity.reports]: [PermissionAction.read],
+    [PermissionEntity.asset]: [
+      PermissionAction.create,
+      PermissionAction.read,
+      PermissionAction.update,
+      PermissionAction.delete,
+      PermissionAction.custody,
+      PermissionAction.import,
+      PermissionAction.export,
+    ],
+    [PermissionEntity.assetIndexSettings]: [
+      PermissionAction.read,
+      PermissionAction.update,
+    ],
+    [PermissionEntity.booking]: [
+      PermissionAction.create,
+      PermissionAction.read,
+      PermissionAction.update,
+      PermissionAction.delete,
+      PermissionAction.checkout,
+      PermissionAction.checkin,
+      PermissionAction.archive,
+      PermissionAction.manageAssets,
+      PermissionAction.manageKits,
+      PermissionAction.cancel,
+      PermissionAction.extend,
+      PermissionAction.export,
+    ],
+    [PermissionEntity.bookingNote]: [
+      PermissionAction.read,
+      PermissionAction.create,
+      PermissionAction.update,
+      PermissionAction.delete,
+    ],
+    [PermissionEntity.auditNote]: [
+      PermissionAction.read,
+      PermissionAction.create,
+      PermissionAction.update,
+      PermissionAction.delete,
+    ],
+    // Wider than ADMIN's own row here: ADMIN's create/update on QR codes
+    // comes entirely from the resolver's allow-all short-circuit, which MAC
+    // does not get. Listed explicitly so (re)assigning a QR label during
+    // check-in/check-out isn't silently blocked.
+    [PermissionEntity.qr]: [
+      PermissionAction.read,
+      PermissionAction.create,
+      PermissionAction.update,
+    ],
+    [PermissionEntity.category]: [
+      PermissionAction.create,
+      PermissionAction.read,
+      PermissionAction.update,
+      PermissionAction.delete,
+    ],
+    [PermissionEntity.customField]: [
+      PermissionAction.create,
+      PermissionAction.read,
+      PermissionAction.update,
+      PermissionAction.delete,
+    ],
+    [PermissionEntity.location]: [
+      PermissionAction.create,
+      PermissionAction.read,
+      PermissionAction.update,
+      PermissionAction.delete,
+    ],
+    [PermissionEntity.locationNote]: [
+      PermissionAction.read,
+      PermissionAction.create,
+      PermissionAction.delete,
+    ],
+    [PermissionEntity.tag]: [
+      PermissionAction.create,
+      PermissionAction.read,
+      PermissionAction.update,
+      PermissionAction.delete,
+    ],
+    // View only: can see who's on the team, cannot invite, remove, or
+    // change anyone's role — that stays with ADMIN/OWNER.
+    [PermissionEntity.teamMember]: [PermissionAction.read],
+    [PermissionEntity.teamMemberProfile]: [PermissionAction.read],
+    [PermissionEntity.teamMemberNote]: [PermissionAction.read],
+    // Workspace/billing/email administration is exactly the "deep system"
+    // territory this role is deliberately kept out of.
+    [PermissionEntity.workspace]: [],
+    [PermissionEntity.generalSettings]: [],
+    [PermissionEntity.emailSettings]: [],
+    [PermissionEntity.subscription]: [],
+    [PermissionEntity.dashboard]: [PermissionAction.read],
+    [PermissionEntity.workingHours]: [PermissionAction.read],
+    [PermissionEntity.kit]: [
+      PermissionAction.create,
+      PermissionAction.read,
+      PermissionAction.update,
+      PermissionAction.delete,
+      PermissionAction.custody,
+    ],
+    [PermissionEntity.note]: [
+      PermissionAction.create,
+      PermissionAction.read,
+      PermissionAction.update,
+      PermissionAction.delete,
+    ],
+    [PermissionEntity.scan]: [PermissionAction.read],
+    [PermissionEntity.custody]: [PermissionAction.read],
+    [PermissionEntity.assetReminders]: [
+      PermissionAction.create,
+      PermissionAction.read,
+      PermissionAction.update,
+      PermissionAction.delete,
+    ],
+    [PermissionEntity.audit]: [
+      PermissionAction.create,
+      PermissionAction.read,
+      PermissionAction.update,
+      PermissionAction.delete,
+      PermissionAction.archive,
+    ],
+    [PermissionEntity.assetModel]: [
+      PermissionAction.create,
+      PermissionAction.read,
+      PermissionAction.update,
+      PermissionAction.delete,
+    ],
+    [PermissionEntity.userData]: [
+      PermissionAction.read,
+      PermissionAction.update,
+    ],
+    [PermissionEntity.update]: [PermissionAction.read],
+    [PermissionEntity.commandPaletteSearch]: [PermissionAction.read],
+  },
   OWNER: {
     [PermissionEntity.reports]: [
       PermissionAction.read,

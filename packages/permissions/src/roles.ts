@@ -16,6 +16,7 @@
 export const ORGANIZATION_ROLES = [
   "OWNER",
   "ADMIN",
+  "MAC",
   "SELF_SERVICE",
   "BASE",
 ] as const;

@@ -82,9 +82,12 @@ const REMOVABLE_STATUSES_BY_ROLE: Record<OrganizationRoles, BookingStatus[]> = {
     BookingStatus.RESERVED,
   ],
   // Unrestricted beyond the closed-record rule, mirroring the ADMIN/OWNER
-  // allow-all short-circuit in `@shelf/permissions`.
+  // allow-all short-circuit in `@shelf/permissions`. MAC gets the same
+  // treatment: it holds full booking actions in the matrix (see
+  // `packages/permissions/src/matrix.ts`), just without the short-circuit.
   [OrganizationRoles.ADMIN]: REMOVABLE_STATUSES,
   [OrganizationRoles.OWNER]: REMOVABLE_STATUSES,
+  [OrganizationRoles.MAC]: REMOVABLE_STATUSES,
 };
 
 /**
@@ -128,8 +131,8 @@ export function canRoleRemoveBookingAssets({
   // to the enum later fails to compile in the map instead of silently
   // inheriting unrestricted removal. Same discipline as
   // `bookingWriteScopeFilter` in `booking-authorization.server.ts`.
-  return roles.some(
-    (role) => REMOVABLE_STATUSES_BY_ROLE[role]?.includes(booking.status)
+  return roles.some((role) =>
+    REMOVABLE_STATUSES_BY_ROLE[role]?.includes(booking.status)
   );
 }
 

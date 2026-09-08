@@ -26,6 +26,7 @@ import { OrganizationRoles } from "@prisma/client";
 export const ROLE_PRECEDENCE = [
   OrganizationRoles.OWNER,
   OrganizationRoles.ADMIN,
+  OrganizationRoles.MAC,
   OrganizationRoles.SELF_SERVICE,
   OrganizationRoles.BASE,
 ] as const;
@@ -34,10 +35,13 @@ export const ROLE_PRECEDENCE = [
  * The subset assignable via SSO group mapping, most privileged first.
  *
  * OWNER is deliberately absent: ownership is a property of who created or was
- * transferred the workspace, never something an IdP group can confer. Deriving
- * this from {@link ROLE_PRECEDENCE} keeps the shared ordering while making that
- * exclusion explicit rather than an omission someone might "fix".
+ * transferred the workspace, never something an IdP group can confer. MAC is
+ * also absent: `SsoDetails` has no `macGroupId` column, so there is no IdP
+ * group to map it from — MAC is granted only through the manual invite flow
+ * today. Deriving this from {@link ROLE_PRECEDENCE} keeps the shared ordering
+ * while making both exclusions explicit rather than omissions someone might
+ * "fix".
  */
 export const SSO_ASSIGNABLE_ROLE_PRECEDENCE = ROLE_PRECEDENCE.filter(
-  (role) => role !== OrganizationRoles.OWNER
+  (role) => role !== OrganizationRoles.OWNER && role !== OrganizationRoles.MAC
 );
