@@ -24,7 +24,10 @@ import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 import { ShelfError, makeShelfError } from "~/utils/error";
 import { payload, error } from "~/utils/http.server";
 import { isPersonalOrg } from "~/utils/organization";
-import { canCreateMoreOrganizations } from "~/utils/subscription.server";
+import {
+  canCreateMoreOrganizations,
+  userHasElevatedRole,
+} from "~/utils/subscription.server";
 import { tw } from "~/utils/tw";
 import type { UserNameFields } from "~/utils/user";
 
@@ -105,6 +108,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
       tier: user.tier,
       tierLimit,
       currentOrganizationId: organizationId,
+      canCreateOrganizationRole: userHasElevatedRole(user.userOrganizations),
       canCreateMoreOrganizations: canCreateMoreOrganizations({
         tierLimit: tierLimit,
         totalOrganizations: organizations.filter((o) => o.owner.id === userId)
@@ -128,6 +132,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => [
 export default function WorkspacePage() {
   const {
     items: organizations,
+    canCreateOrganizationRole,
     canCreateMoreOrganizations,
     tier,
     tierLimit,
@@ -151,6 +156,9 @@ export default function WorkspacePage() {
     );
   }
 
+  const roleMessage =
+    "Only workspace administrators and owners can create new workspaces. Ask an admin or owner to create one for you.";
+
   return (
     <div>
       <div className="w-full">
@@ -164,11 +172,11 @@ export default function WorkspacePage() {
             data-test-id="createNewWorkspaceButton"
             variant="primary"
             disabled={
-              !canCreateMoreOrganizations
-                ? {
-                    reason: upgradeMessage,
-                  }
-                : false
+              !canCreateOrganizationRole
+                ? { reason: roleMessage }
+                : !canCreateMoreOrganizations
+                  ? { reason: upgradeMessage }
+                  : false
             }
           >
             New workspace

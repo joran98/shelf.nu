@@ -1,5 +1,5 @@
 import type { Prisma, Organization } from "@prisma/client";
-import { OrganizationType } from "@prisma/client";
+import { OrganizationRoles, OrganizationType } from "@prisma/client";
 import { config } from "~/config/shelf.config";
 import { db } from "~/database/db.server";
 import { countActiveCustomFields } from "~/modules/custom-field/service.server";
@@ -292,6 +292,28 @@ export const canCreateMoreOrganizations = ({
   return totalOrganizations < tierLimit?.maxOrganizations;
 };
 /**
+ * Whether any of the user's organization memberships grant ADMIN or OWNER.
+ * Creating a brand-new workspace is a global action with no target
+ * organization to check a role against, so this scans every membership the
+ * user has rather than going through the org-scoped `requirePermission`.
+ *
+ * A BASE/SELF_SERVICE member with no elevated role anywhere has never been
+ * trusted with administering a workspace, so letting them spin up a brand
+ * new one (personal or team) would hand them exactly that trust by a side
+ * door. Owning even a personal workspace clears this, since that already
+ * makes someone an OWNER somewhere.
+ */
+export function userHasElevatedRole(
+  userOrganizations: { roles: OrganizationRoles[] }[]
+) {
+  return userOrganizations.some(
+    (uo) =>
+      uo.roles.includes(OrganizationRoles.ADMIN) ||
+      uo.roles.includes(OrganizationRoles.OWNER)
+  );
+}
+
+/**
  * Fetches user and calls {@link canCreateMoreOrganizations};.
  * Throws an error if the user cannot create more organizations.
  */
@@ -313,6 +335,18 @@ export async function assertUserCanCreateMoreOrganizations(userId: string) {
     }),
     getUserTierLimit(userId),
   ]);
+
+  if (!userHasElevatedRole(user.userOrganizations)) {
+    throw new ShelfError({
+      cause: null,
+      title: "Not allowed",
+      message:
+        "Only workspace administrators and owners can create new workspaces. Ask an admin or owner to create one for you.",
+      additionalData: { userId },
+      label,
+      shouldBeCaptured: false,
+    });
+  }
 
   const organizations = user.userOrganizations
     .map((o) => o.organization)
