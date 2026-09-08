@@ -101,8 +101,8 @@ export async function getUserByID(
       ...(select
         ? { select }
         : include
-        ? { include }
-        : { select: { id: true } }),
+          ? { include }
+          : { select: { id: true } }),
     });
 
     return user;
@@ -275,6 +275,7 @@ export async function createUserOrAttachOrg({
   lastName,
   createdWithInvite = false,
   formatPrefs,
+  skipPersonalOrg,
 }: Pick<User, "email" | "firstName"> &
   Partial<Pick<User, "lastName">> & {
     organizationId: Organization["id"];
@@ -283,6 +284,8 @@ export async function createUserOrAttachOrg({
     createdWithInvite: boolean;
     /** Browser-detected prefs threaded down from the invite-accept action. */
     formatPrefs?: DetectedFormatPrefs;
+    /** Forwarded to `createUser` — see its JSDoc for the invite's role in this. */
+    skipPersonalOrg?: boolean;
   }) {
   try {
     const shelfUser = await db.user.findFirst({
@@ -326,6 +329,7 @@ export async function createUserOrAttachOrg({
         lastName,
         createdWithInvite,
         formatPrefs,
+        skipPersonalOrg,
       });
 
       await ensureAssetIndexModeForRole({

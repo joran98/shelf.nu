@@ -29,7 +29,7 @@ import { getParamsValues } from "~/utils/list";
 import { checkDomainSSOStatus, doesSSOUserExist } from "~/utils/sso.server";
 import { generateRandomCode, inviteEmailText, splitName } from "./helpers";
 import { processInvitationMessage } from "./message-validator.server";
-import { isInvitableRole } from "./roles";
+import { defaultCreatePersonalOrg, isInvitableRole } from "./roles";
 import { createTeamMember } from "../team-member/service.server";
 import { createUserOrAttachOrg } from "../user/service.server";
 
@@ -130,6 +130,12 @@ export async function createInvite(
     teamMemberId?: Invite["teamMemberId"];
     userId: string;
     extraMessage?: string | null;
+    /**
+     * Whether accepting this invite should also create a personal workspace
+     * for the invitee. Omit to fall back to the role-based default (off for
+     * BASE/SELF_SERVICE, on for ADMIN) — see `defaultCreatePersonalOrg`.
+     */
+    createPersonalOrg?: Invite["createPersonalOrg"];
   }
 ) {
   let {
@@ -141,6 +147,7 @@ export async function createInvite(
     teamMemberId,
     userId,
     extraMessage,
+    createPersonalOrg,
   } = payload;
 
   try {
@@ -257,6 +264,7 @@ export async function createInvite(
       inviteeEmail,
       expiresAt,
       inviteCode: generateRandomCode(6),
+      createPersonalOrg: createPersonalOrg ?? defaultCreatePersonalOrg(roles),
       ...(sanitizedMessage && { inviteMessage: sanitizedMessage }),
     };
 
@@ -412,6 +420,7 @@ export async function updateInviteStatus({
         lastName,
         createdWithInvite: true,
         formatPrefs,
+        skipPersonalOrg: !invite.createPersonalOrg,
       });
 
       Object.assign(data, {

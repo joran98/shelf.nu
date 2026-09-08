@@ -6,7 +6,10 @@ import { useZorm } from "react-zorm";
 import { z } from "zod";
 import { useCurrentOrganization } from "~/hooks/use-current-organization";
 import useFetcherWithReset from "~/hooks/use-fetcher-with-reset";
-import { INVITABLE_ROLES } from "~/modules/invite/roles";
+import {
+  defaultCreatePersonalOrg,
+  INVITABLE_ROLES,
+} from "~/modules/invite/roles";
 import type { UserFriendlyRoles } from "~/routes/_layout+/settings.team";
 import { isFormProcessing } from "~/utils/form";
 import { getValidationErrors } from "~/utils/http";
@@ -50,6 +53,13 @@ export const InviteUserFormSchema = z.object({
     z.enum(INVITABLE_ROLES, { message: "Please select a role" })
   ),
   inviteMessage: z.string().max(1000).optional(),
+  // Unchecked checkboxes are omitted from FormData entirely, so an absent
+  // value means "off", not "use the server-side role default" — the default
+  // is only ever applied by callers that skip this field (CSV import, resend).
+  createPersonalOrg: z
+    .string()
+    .optional()
+    .transform((value) => value === "on"),
 });
 
 const organizationRolesMap: Record<string, UserFriendlyRoles> = {
@@ -67,6 +77,9 @@ export default function InviteUserDialog({
 }: InviteUserDialogProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [messageCharCount, setMessageCharCount] = useState(0);
+  // Re-derived every time the role changes (see the Select's onValueChange
+  // below); the admin can still override it before submitting.
+  const [createPersonalOrg, setCreatePersonalOrg] = useState(true);
   const organization = useCurrentOrganization();
 
   const fetcher =
@@ -88,6 +101,7 @@ export default function InviteUserDialog({
   const closeDialog = useCallback(() => {
     zo.form?.reset();
     setMessageCharCount(0);
+    setCreatePersonalOrg(true);
     setIsDialogOpen(false);
     onClose && onClose();
   }, [onClose, zo.form]);
@@ -182,7 +196,14 @@ export default function InviteUserDialog({
 
               <SelectGroup>
                 <SelectLabel className="pl-0">Role</SelectLabel>
-                <Select name="role">
+                <Select
+                  name="role"
+                  onValueChange={(value) =>
+                    setCreatePersonalOrg(
+                      defaultCreatePersonalOrg([value as OrganizationRoles])
+                    )
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select user role" />
                   </SelectTrigger>
@@ -217,6 +238,30 @@ export default function InviteUserDialog({
                     zo.errors?.role()?.message}
                 </p>
               </When>
+
+              <div className="flex cursor-pointer select-none items-start gap-2 py-1 text-sm">
+                <input
+                  id="createPersonalOrg"
+                  name={zo.fields.createPersonalOrg()}
+                  type="checkbox"
+                  checked={createPersonalOrg}
+                  onChange={(e) => setCreatePersonalOrg(e.target.checked)}
+                  aria-describedby="createPersonalOrg-description"
+                  className="mt-0.5 rounded-sm checked:bg-primary focus-within:ring-primary checked:hover:bg-primary checked:focus:bg-primary"
+                />
+                <div>
+                  <label htmlFor="createPersonalOrg" className="font-medium">
+                    Create a personal workspace for this user
+                  </label>
+                  <p
+                    id="createPersonalOrg-description"
+                    className="mt-1 text-gray-500"
+                  >
+                    Off by default for Base and Self service — they only need
+                    access to this workspace.
+                  </p>
+                </div>
+              </div>
 
               <div className="pt-1.5">
                 <Input

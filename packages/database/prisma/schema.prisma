@@ -1449,6 +1449,15 @@ model Invite {
   inviteCode    String
   roles         OrganizationRoles[]
   inviteMessage String?             @db.VarChar(1000)
+  /**
+   * Whether accepting this invite creates a personal workspace for the
+   * invitee, in addition to attaching them to `organization`. Decided once,
+   * per invite, at send time — defaults to off for BASE/SELF_SERVICE and on
+   * for ADMIN (see `createInvite`), and can be overridden per person from the
+   * invite dialog. Read only by `updateInviteStatus` when the invite is
+   * accepted; irrelevant once `inviteeUser` already exists.
+   */
+  createPersonalOrg Boolean @default(true)
 
   // Datetime
   expiresAt DateTime

@@ -47,3 +47,18 @@ export type InvitableRole = (typeof INVITABLE_ROLES)[number];
 export function isInvitableRole(value: unknown): value is InvitableRole {
   return INVITABLE_ROLES.includes(value as InvitableRole);
 }
+
+/**
+ * Default "create a personal workspace for this invitee" choice, based on
+ * the role(s) an invite grants. BASE and SELF_SERVICE are limited, day-to-day
+ * roles that only ever need the inviting organization, so they default to
+ * off; ADMIN keeps the historical default of on. This is only the DEFAULT —
+ * `createInvite` lets the inviter override it per person, and this function
+ * is only consulted when no explicit choice was made.
+ */
+export function defaultCreatePersonalOrg(roles: OrganizationRoles[]) {
+  return !roles.every(
+    (role) =>
+      role === OrganizationRoles.BASE || role === OrganizationRoles.SELF_SERVICE
+  );
+}
